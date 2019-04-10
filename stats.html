@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html id="stats_page">
+<head>
+  <title>Paper/Rock/Scissors Andryc Stats</title>
+  <link rel="stylesheet" type="text/css" href="styles/style.css" />
+</head>
+
+<body>
+  <div id="header">
+  <h1>Paper/Rock/Scissors</h1>
+  <img src="images/Header.jpg" width="280" height="160">
+  </div>
+
+  <a id = "return_home_button" style="margin-left:50px" href="/">Home</a>
+  <p></p>
+  <a id = "show_rules_button" style="margin-left:50px" href="/rules">Rules</a>
+  
+  <div id="stats">
+    <h2>Game Statistics</h2>
+    <p>Total games played: <span id="total_games_played"></span></p>
+    <!--Total games played-->
+    <p>Total games won: <span id="total_player_wins"></span></p>
+    <!--Total wins from player-->
+    <p>Winning rate: <span id="winning_percentage"></span></p>
+    <!--Win/loss ratio-->
+    <p>Your statisics:</p>
+    <ul>
+    <li>Rate of playing paper: <span id="your_paper_stats"></span></li>
+    <li>Rate of playing rock: <span id="your_rock_stats"></span></li>
+    <li>Rate of playing scissors: <span id="your_scissors_stats"></span></li>
+    </ul>
+    <!--Individual throw statistics-->
+    <p>Opponent statisics:</p>
+    <ul>
+    <li>Rate of playing paper: <span id="opponent_paper_stats"></span></li>
+    <li>Rate of playing rock: <span id="opponent_rock_stats"></span></li>
+    <li>Rate of playing scissors: <span id="opponent_scissors_stats"></span></li>
+    </ul>
+    <!--B(r)owser throw statistics-->
+  </div>
+  
+  <script>
+  var user = JSON.parse(localStorage.getItem("user"));
+  var computer = JSON.parse(localStorage.getItem("computer"));
+  var sum = user.games[1];
+  if (sum != computer.games[1]) console.log("The user and computer objects don't have the same number of games played, this is an error messgae that should not ever come up");
+  document.getElementById("total_games_played").innerHTML = sum;
+  document.getElementById("total_player_wins").innerHTML = user.games[0];
+  var ratio = parseInt(100*user.games[0]/sum);
+  var outputRatio = ratio+"%";
+  document.getElementById("winning_percentage").innerHTML = outputRatio;//if this funciton is called, a game has been played, cannot be zero
+  var p0 = parseInt(100*user.results[0]/sum);
+  var p1 = parseInt(100*user.results[1]/sum);
+  var p2 = parseInt(100*user.results[2]/sum);
+  var o0 = parseInt(100*computer.results[0]/sum);
+  var o1 = parseInt(100*computer.results[1]/sum);
+  var o2 = parseInt(100*computer.results[2]/sum);
+
+  
+  p0 = p0 + "%";
+  p1 = p1 + "%";
+  p2 = p2 + "%";
+  o0 = o0 + "%";
+  o1 = o1 + "%";
+  o2 = o2 + "%";
+
+  document.getElementById("your_paper_stats").innerHTML = p0;
+  document.getElementById("your_rock_stats").innerHTML = p1;
+  document.getElementById("your_scissors_stats").innerHTML = p2;
+  document.getElementById("opponent_paper_stats").innerHTML = o0;
+  document.getElementById("opponent_rock_stats").innerHTML = o1;
+  document.getElementById("opponent_scissors_stats").innerHTML = o2;
+  </script>
+
+  <footer>
+    Produced by Stephen Andryc (19) before December 7, 2018 
+    <!--Brought to you by the cool kids of Software Engineering - Fall, 2018.-->
+  </footer>
+  
+  <script src="scripts/scripts.js"></script>
+</body>
+</html>
+<!--Below is comment format that can be copied-->
+<!-- -->

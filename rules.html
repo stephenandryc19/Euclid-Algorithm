@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html id="rules_page">
+<head>
+  <title>Paper/Rock/Scissors Andryc Rules</title>
+  <link rel="stylesheet" type="text/css" href="styles/style.css" />
+</head>
+
+<body>
+  <div id="header">
+  <h1>Paper/Rock/Scissors</h1>
+  <img src="images/Header.jpg" width="280" height="160">
+  </div>
+
+  <a id = "return_home_button" style="margin-left:50px" href="/">Home</a>
+  <p></p>
+  <a id = "show_stats_button" class = "hidden" style="margin-left:50px" href="/stats">Stats</a>
+  <script>
+  if(localStorage.getItem("show_stats")){
+    document.getElementById("show_stats_button").classList.remove("hidden");
+    document.getElementById("show_stats_button").classList.add("visible");
+  }
+  //checks statistics relevance as to whether or not to link
+  </script>
+  <div id="rules">
+    <h2>Game Rules</h2>
+    The Rules of Paper/Rock/Scissors:
+    <ul>
+      <li>There are two players, both trying to defeat the other</li>
+      <li>Both players simultaneously choose to play rock, paper, or scissors</li>
+      <li>Your opponent in this game will be the infamous villain B(r)owser</li>
+      <li>If both players have the same choice, the game is a draw</li>
+      <li>If one player plays rock and the other plays scissors, rock wins</li>
+      <li>If one player plays scissors and the other plays paper, scissors wins</li>
+      <li>If one player plays paper and teh other plays rock, paper wins</li>
+    </ul>
+    For official Paper/Rock/Scissors competition, see the following:
+    <ul>
+      <li><a href="http://worldrps.com/">World RPS Society</a></li>
+      <li><a href="https://www.wrpsa.com/">World RPS Association</a></li>
+    </ul>
+    <!--Links to PRS sites-->
+  </div>
+  
+  <footer>
+    Produced by Stephen Andryc (19) before December 7, 2018 
+    <!--Brought to you by the cool kids of Software Engineering - Fall, 2018.-->
+  </footer>
+  
+  <script src="scripts/scripts.js"></script>
+</body>
+</html>
+<!--Below is comment format that can be copied-->
+<!-- -->

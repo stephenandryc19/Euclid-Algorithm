@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html id="index_page">
+<head>
+  <title>Paper/Rock/Scissors Andryc</title>
+  <link rel="stylesheet" type="text/css" href="styles/style.css" />
+</head>
+
+<body>
+  <div id="header">
+  <h1>Paper/Rock/Scissors</h1>
+  <img src="images/Header.jpg" width="280" height="160">
+  </div>
+
+  <a id = "show_rules_button" class = "hidden" style="margin-left:50px" href="/rules">Rules</a>
+  <p></p>
+  <a id = "show_stats_button" class = "hidden" style="margin-left:50px" href="/stats">Stats</a>
+  <!--Declares button that pulls down rules page, maybe toggle text to say open or close-->
+  <!--Declares button that pulls down stats page, maybe toggle text to say open or close-->
+  
+  <div id="enter_name" class="visible">
+    <h2>Enter Your Username</h2>
+    Enter your name:<input type="text" id = "enter_name_input"><button id = "enter_name_button">Submit Name</button>
+  </div>
+  <!--Combine with feedback (?)-->
+  
+  <div id="feedback" class="hidden">
+    <h2>Feedback</h2>
+
+    <p id = "name_entered_feedback_text" class = "hidden" style = "color:#0000ff;"><span id = "name"></span>, your username was successfully submitted!!</p>
+
+    <p id = "nothing_entered_feedback_text" class = "hidden" style = "color:red;">No username given, please re-type!!</p>
+    <p id = "weapon_not_entered_feedback_text" class = "hidden" style = "color:red">No weapon chosen, please select one!!</p>
+    <!--Error for weapon choice-->
+    <button id = "close_feedback_button">Close window</button>
+  </div>
+  <!--Feedback window for entering username, make the div visible and make an p show with visible-->
+  
+  <div id="throw_choice" class="hidden">
+    <h2>Play the Game</h2>
+    <!--Display player name-->
+    <p id="play_weapon_message" class="visible"><span id="name2"></span>, please choose a weapon</p>
+    <select id="player_choice" class="visible">
+      <option value = "blank"></option>
+      <option value = "paper">Paper</option>
+      <option value = "rock">Rock</option>
+      <option value = "scissors">Scissors</option>
+    </select><button id="play_move" class="visible">Play</button>
+    <button id="play_again" class="hidden">Play again</button>
+    <!--
+    <button id = "paper">Paper</button>
+    <button id = "rock">Rock</button>
+    <button id = "scissors">Scissors</button>
+    <button id = "blank">Blank</button>
+    -->
+  </div>
+  
+  <div id="game_results" class="hidden">
+
+  <img src="images/Paper.jpg" id="your_image" height="200" width = "150"> <img src="images/Paper.jpg" id="opponent_image" height="200" width="150">
+  <!--Image of results-->
+  <p><span id="game_summary"></span></p>
+  </div>
+  
+  <footer>
+    Produced by Stephen Andryc (19) before December 7, 2018 
+    <!--Brought to you by the cool kids of Software Engineering - Fall, 2018.-->
+  </footer>
+  
+  <script src="scripts/scripts.js"></script>
+</body>
+</html>
+<!--Below is comment format that can be copied-->
+<!-- -->
