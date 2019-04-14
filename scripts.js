@@ -1,16 +1,5 @@
-var player = {results:[0,0,0],games:[0,0],name};//skeleton for player object
-
-var initString = JSON.stringify(player);//{"results":[0,0,0],"games":[0,0],"name":""}
-localStorage.setItem("user",initString);
-localStorage.setItem("computer",initString);//defines initial computer locally
-
-//document.getElementById("show_rules_button").addEventListener("click", function () {//switch to rules page});
-//makeToggable(document.getElementById("show_rules_button"), document.getElementById("rules"));//connects button to show rules to rules div
-document.getElementById("show_stats_button").addEventListener("click", function () {
-	statsPageUpdate();
-	//switch to stats page
-});
-//makeToggable(document.getElementById("show_stats_button"), document.getElementById("stats"));//connects button to show stats to stats div
+localStorage.setItem("a",1);
+localStorage.setItem("b",1);//defines initial computer locally
 
 document.getElementById("close_feedback_button").addEventListener("click", function() {
 	showOrNot(document.getElementById("feedback"),false);

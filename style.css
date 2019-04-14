@@ -1,7 +1,7 @@
 body {
-  background-color:#008000;
+  background-color:#000080;
   font:"Times New Roman", Times, serif;
-  color:#00ff00;
+  color:#0000ff;
 }
 
 a {
@@ -24,7 +24,7 @@ div {
 }
 
 .hidden{
-  display: none;
+  display:none;
 }
 
 .visible{

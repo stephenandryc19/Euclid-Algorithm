@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html id="rules_page">
+<html id="about_page">
 <head>
-  <title>Paper/Rock/Scissors Andryc Rules</title>
+  <title>Euclid's Algorithm Description</title>
   <link rel="stylesheet" type="text/css" href="styles/style.css" />
 </head>
 
 <body>
-  <div id="header">
-  <h1>Paper/Rock/Scissors</h1>
-  <img src="images/Header.jpg" width="280" height="160">
+  <div id="about_header">
+    <h1>Euclid's Algorithm</h1>
+    <img src="images/Header.jpg" width="280" height="160">
   </div>
 
-  <a id = "return_home_button" style="margin-left:50px" href="/">Home</a>
+  <a id = "link_home_button" class = "visible" style="margin-left:50px" href="/">Home</a>
   <p></p>
-  <a id = "show_stats_button" class = "hidden" style="margin-left:50px" href="/stats">Stats</a>
+  <a id = "link_animation_button" class = "visible" style="margin-left:50px" href="/animation">Animation</a>
   <script>
   if(localStorage.getItem("show_stats")){
     document.getElementById("show_stats_button").classList.remove("hidden");
@@ -42,8 +42,7 @@
   </div>
   
   <footer>
-    Produced by Stephen Andryc (19) before December 7, 2018 
-    <!--Brought to you by the cool kids of Software Engineering - Fall, 2018.-->
+    Produced by Stephen Andryc (Topics '18-'19)
   </footer>
   
   <script src="scripts/scripts.js"></script>
