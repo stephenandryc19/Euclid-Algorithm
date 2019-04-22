@@ -122,60 +122,6 @@ function showOrNot (div_element/*name of div*/, show/*boolean as whether or not 
 	}
 }//takes a div and makes it either hidden or visible, depending on preferences
 
-function updateStats (user,computer) {
-	user.games[1]++;//user adds a game to register
-	computer.games[1]++;//computer adds a game to register
-	
-	localStorage.setItem("user",JSON.stringify(user));//updates user object in local storage
-	localStorage.setItem("computer",JSON.stringify(computer));//updates computer object in local storage
-
-	console.log("User in local storage update: ",localStorage.getItem("user"));
-	console.log("Computer in local storage update:",localStorage.getItem("computer"));
-
-	showOrNot(document.getElementById("weapon_not_entered_feedback_text"),false);
-	showOrNot(document.getElementById("play_move"),false);
-	showOrNot(document.getElementById("player_choice"),false);
-	showOrNot(document.getElementById("play_again"),true);
-	showOrNot(document.getElementById("game_results"),true);
-	showOrNot(document.getElementById("show_stats_button"),true);
-	showOrNot(document.getElementById("play_weapon_message"),false);
-}
-
-function statsPageUpdate () {
-	var user = JSON.parse(localStorage.getItem("user"));
-	var computer = JSON.parse(localStorage.getItem("computer"));
-
-	var sum = user.games[1];
-	if (sum != computer.games[1]) console.log("The user and computer objects don't have the same number of games played, this is an error messgae that should not ever come up");
-	document.getElementById("total_games_played").innerHTML = sum;
-	document.getElementById("total_player_wins").innerHTML = user.games[0];
-	var ratio = parseInt(100*user.games[0]/sum);
-	var outputRatio = ratio+"%";
-	document.getElementById("winning_percentage").innerHTML = outputRatio;//if this funciton is called, a game has been played, cannot be zero
-	var p0 = parseInt(100*user.results[0]/sum);
-	var p1 = parseInt(100*user.results[1]/sum);
-	var p2 = parseInt(100*user.results[2]/sum);
-	var o0 = parseInt(100*computer.results[0]/sum);
-	var o1 = parseInt(100*computer.results[1]/sum);
-	var o2 = parseInt(100*computer.results[2]/sum);
-
-	
-
-	p0 = p0 + "%";
-	p1 = p1 + "%";
-	p2 = p2 + "%";
-	o0 = o0 + "%";
-	o1 = o1 + "%";
-	o2 = o2 + "%";
-
-	document.getElementById("your_paper_stats").innerHTML = p0;
-	document.getElementById("your_rock_stats").innerHTML = p1;
-	document.getElementById("your_scissors_stats").innerHTML = p2;
-	document.getElementById("opponent_paper_stats").innerHTML = o0;
-	document.getElementById("opponent_rock_stats").innerHTML = o1;
-	document.getElementById("opponent_scissors_stats").innerHTML = o2;
-}
-
 function makeToggable (button_element, div_element){
 	button_element.addEventListener("click", function(){
 		if (div_element.classList.contains("hidden")){//if one of the properties of the div is "hidden"

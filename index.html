@@ -7,56 +7,22 @@
 
 <body>
   <div id="index_header">
-    <h1>Euclid's Algorithm (find replacement header picture)</h1>
-    <img src="images/Header.jpg" width="280" height="160">
-  </div>
-
-  <a id = "link_about_button" class = "visible" style="margin-left:50px" href="/about">About</a>
-  <p></p>
-  <a id = "link_animation_button" class = "visible" style="margin-left:50px" href="/animation">Animation</a>
-  <!--Declares button that pulls down rules page, maybe toggle text to say open or close-->
-  <!--Declares button that pulls down stats page, maybe toggle text to say open or close-->
-  
-  <div id="enter_name" class="visible">
-    <h2>Enter Your Username</h2>
-    Enter your name:<input type="text" id = "enter_name_input"><button id = "enter_name_button">Submit Name</button>
-  </div>
-  <!--Combine with feedback (?)-->
-  
-  <div id="feedback" class="hidden">
-    <h2>Feedback</h2>
-
-    <p id = "name_entered_feedback_text" class = "hidden" style = "color:#0000ff;"><span id = "name"></span>, your username was successfully submitted!!</p>
-
-    <p id = "nothing_entered_feedback_text" class = "hidden" style = "color:red;">No username given, please re-type!!</p>
-    <p id = "weapon_not_entered_feedback_text" class = "hidden" style = "color:red">No weapon chosen, please select one!!</p>
-    <!--Error for weapon choice-->
-    <button id = "close_feedback_button">Close window</button>
-  </div>
-  <!--Feedback window for entering username, make the div visible and make an p show with visible-->
-  
-  <div id="throw_choice" class="hidden">
-    <h2>Play the Game</h2>
-    <!--Display player name-->
-    <p id="play_weapon_message" class="visible"><span id="name2"></span>, please choose a weapon</p>
-    <select id="player_choice" class="visible">
-      <option value = "blank"></option>
-      <option value = "paper">Paper</option>
-      <option value = "rock">Rock</option>
-      <option value = "scissors">Scissors</option>
-    </select><button id="play_move" class="visible">Play</button>
-    <button id="play_again" class="hidden">Play again</button>
+    <h1>Euclid's Algorithm</h1>
+    <img src="images/Header.jpg" width="350" height="180">
+    <p>
+      <a id = "link_home_button" class = "visible" href="/">Home</a>
+      <a id = "link_about_button" class = "visible" href="/about">About</a>
+      <a id = "link_animation_button" class = "visible" href="/animation">Animation</a>
+    </p>
   </div>
   
-  <div id="game_results" class="hidden">
-
-  <img src="images/Paper.jpg" id="your_image" height="200" width = "150"> <img src="images/Paper.jpg" id="opponent_image" height="200" width="150">
-  <!--Image of results-->
-  <p><span id="game_summary"></span></p>
+  <div id="welcome_message" class="visible">
+    <h2>Welcome to Euclid's Algorithm</h2>
+    Once the other components are complete, insert a brief description/references/links/other info here (not the "about" page).
   </div>
   
   <footer>
-    Produced by Stephen Andryc (Topics '18-'19)
+    Produced by Stephen Andryc (Topics '18-'19).
   </footer>
   
   <script src="scripts/scripts.js"></script>

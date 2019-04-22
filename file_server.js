@@ -6,7 +6,7 @@ var port = process.env.PORT || 8000;
 //setting up server parameters
 
 app.listen(port, function(){
-  console.log('Easy server listening for requests on port'+ port+'!');
+  console.log('Port '+ port+' opened');
 });
 //establishing server
 

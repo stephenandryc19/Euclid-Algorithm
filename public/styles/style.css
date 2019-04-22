@@ -1,5 +1,5 @@
 body {
-  background-color:#008000;
+  background-color:#0000ff;
   font:"Times New Roman", Times, serif;
   color:#00ff00;
 }
@@ -11,7 +11,10 @@ a {
 h1 {
   background-color: #444444;
   text-align: left;
+}
 
+canvas {
+  background-color: #ffffff;
 }
 
 div {
@@ -20,11 +23,13 @@ div {
   margin-right: 50px;
   margin-left: 50px;
   background-color: #444444;
-
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 5px;
 }
 
 .hidden{
-  display: none;
+  display:none;
 }
 
 .visible{

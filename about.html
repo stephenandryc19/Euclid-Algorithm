@@ -8,41 +8,22 @@
 <body>
   <div id="about_header">
     <h1>Euclid's Algorithm</h1>
-    <img src="images/Header.jpg" width="280" height="160">
+    <img src="images/Header.jpg" width="350" height="180">
+    <p>
+      <a id = "link_home_button" class = "visible" href="/">Home</a>
+      <a id = "link_about_button" class = "visible" href="/about">About</a>
+      <a id = "link_animation_button" class = "visible" href="/animation">Animation</a>
+    </p>
   </div>
-
-  <a id = "link_home_button" class = "visible" style="margin-left:50px" href="/">Home</a>
-  <p></p>
-  <a id = "link_animation_button" class = "visible" style="margin-left:50px" href="/animation">Animation</a>
-  <script>
-  if(localStorage.getItem("show_stats")){
-    document.getElementById("show_stats_button").classList.remove("hidden");
-    document.getElementById("show_stats_button").classList.add("visible");
-  }
-  //checks statistics relevance as to whether or not to link
-  </script>
-  <div id="rules">
-    <h2>Game Rules</h2>
-    The Rules of Paper/Rock/Scissors:
-    <ul>
-      <li>There are two players, both trying to defeat the other</li>
-      <li>Both players simultaneously choose to play rock, paper, or scissors</li>
-      <li>Your opponent in this game will be the infamous villain B(r)owser</li>
-      <li>If both players have the same choice, the game is a draw</li>
-      <li>If one player plays rock and the other plays scissors, rock wins</li>
-      <li>If one player plays scissors and the other plays paper, scissors wins</li>
-      <li>If one player plays paper and teh other plays rock, paper wins</li>
-    </ul>
-    For official Paper/Rock/Scissors competition, see the following:
-    <ul>
-      <li><a href="http://worldrps.com/">World RPS Society</a></li>
-      <li><a href="https://www.wrpsa.com/">World RPS Association</a></li>
-    </ul>
-    <!--Links to PRS sites-->
+  
+  <div id="algorith_description" class="visible">
+    <h2>Algorithm Rules</h2>
+    This is a written section on the history of the algorithm, how it actually works, and applications.
+    <li class="hidden"><a href="http://worldrps.com/">Link template, change to visible</a></li>
   </div>
   
   <footer>
-    Produced by Stephen Andryc (Topics '18-'19)
+    Produced by Stephen Andryc (Topics '18-'19).
   </footer>
   
   <script src="scripts/scripts.js"></script>

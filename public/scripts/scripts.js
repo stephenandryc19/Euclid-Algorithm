@@ -1,139 +1,193 @@
+localStorage.setItem("a",1);
+localStorage.setItem("b",1);
+//two integers which guide the animation
+localStorage.setItem("step",0);
+//keeps track of step of Euclid's algorithm the program is printing
+localStorage.setItem("gcd",1);
+//once calculated within program stores GCD to tile entire board
+localStorage.setItem("tile_color","#000000");
+//saves color of square that tiles rectangle
 
-//document.getElementById("show_rules_button").addEventListener("click", function () {//switch to rules page});
-//makeToggable(document.getElementById("show_rules_button"), document.getElementById("rules"));//connects button to show rules to rules div
-//document.getElementById("show_stats_button").addEventListener("click", function () {//switch to stats page});
-//makeToggable(document.getElementById("show_stats_button"), document.getElementById("stats"));//connects button to show stats to stats div
+var c = document.getElementById("canvas");
+var canvas = c.getContext("2d");
+var canvasHeight = 400;
+//canvas animation parameters
 
-document.getElementById("close_feedback_button").addEventListener("click", function() {
-	showOrNot(document.getElementById("feedback"),false);
-	showOrNot(document.getElementById("name_entered_feedback_text"),false);
-	showOrNot(document.getElementById("nothing_entered_feedback_text"),false);
-	showOrNot(document.getElementById("weapon_not_entered_feedback_text"),false);
-});//toggles closing feedback div
+var tiled = false;
+//keeps track of whether a canvas it tiled already or not
 
-
-if (localStorage.getItem("name_entered")) {
-	var user = JSON.parse(localStorage.getItem("user"));
-	showOrNot(document.getElementById("enter_name"),false);//name now entered, entering name not relevant
-	document.getElementById("name").innerHTML = user.name;//first instance of using username in HTML
-	document.getElementById("name2").innerHTML = user.name;//second instance of using username in HTML
-	showOrNot(document.getElementById("throw_choice"),true);//gives player options for which weapon to select
-	showOrNot(document.getElementById("show_rules_button"),true);//rules now available since they are relevant
-}
-
-if(localStorage.getItem("show_stats")) {
-	showOrNot(document.getElementById("show_stats_button"),true);
-}
-
-
-document.getElementById("enter_name_button").addEventListener("click", function(){
-	var player = {results:[0,0,0],games:[0,0],name};//skeleton for player object
-	var initString = JSON.stringify(player);//{"results":[0,0,0],"games":[0,0],"name":""}
-	localStorage.setItem("user",initString);//defines initial user locally
-	localStorage.setItem("computer",initString);//defines initial computer locally
-	var user = JSON.parse(localStorage.getItem("user"));
-	var computer = JSON.parse(localStorage.getItem("computer"));
-	computer.name = "computer";
-	var p_name=document.getElementById("enter_name_input").value;//fetches typed in name
-	showOrNot(document.getElementById("feedback"),true);//makes feedback div visible regardless of specific feedback
-	if ((p_name.length==0)||!(p_name)) {//no name or null length given
-		console.log("No player name accepted");//console feedback
-		showOrNot(document.getElementById("enter_name"),true);
-		showOrNot(document.getElementById("nothing_entered_feedback_text"),true);
-	} else {
-		user.name = p_name;
-		console.log("Player name accepted");//console feedback
-		localStorage.setItem("name_entered",true);
-		showOrNot(document.getElementById("enter_name"),false);//name now entered, entering name not relevant
-		showOrNot(document.getElementById("throw_choice"),true);//gives player options for which weapon to select
-		showOrNot(document.getElementById("name_entered_feedback_text"),true);//gives feedback that username successfully received
-		showOrNot(document.getElementById("nothing_entered_feedback_text"),false);//deletes feedback of an invalid username
-		document.getElementById("name").innerHTML = p_name;//first instance of using username in HTML
-		document.getElementById("name2").innerHTML = p_name;//second instance of using username in HTML
-		showOrNot(document.getElementById("show_rules_button"),true);//rules now available since they are relevant
-	}
-	localStorage.setItem("user",JSON.stringify(user));
-	localStorage.setItem("computer",JSON.stringify(computer));
-});//adds an anonymous function as an event lister to add the name
-
-function randomChoice (choices) {
-	return choices*Math.random();
-}//returns a random integer given a number of choices
-
-document.getElementById("play_move").addEventListener("click", function () {
-	var user = JSON.parse(localStorage.getItem("user"));
-	var computer = JSON.parse(localStorage.getItem("computer"));
-
-	var choice = document.getElementById("player_choice").value;//takes user choice div status as input
-	var opponentChoice = randomChoice(2);//determines opponent move
-	if (choice=="paper") {
-		document.getElementById("your_image").src="images/Paper.jpg";
-		console.log("Paper played");
-		//accesses user paper image and sets corresponding value for corresponding div
-		user.results[0]++;
-		if(opponentChoice < 1) {
-			console.log("Opponent played rock");
-			document.getElementById("opponent_image").src="images/Rock2.jpg";
-			computer.results[1]++;
-			user.games[0]++;//you get win
-			var output = "You played paper and your opponent played rock. Since paper beats rock, you win!";
-			document.getElementById("game_summary").innerHTML = output;
-		} else {
-			console.log("Opponent played scissors");
-			document.getElementById("opponent_image").src="images/Scissors2.jpg";
-			computer.results[2]++;
-			computer.games[0]++;//opponent gets win
-			var output = "You played paper and your opponent played scissors. Since scissors beats paper, you lost!";
-			document.getElementById("game_summary").innerHTML = output;
+document.getElementById("enter_numbers_button").addEventListener("click", function(){
+	var a = Number(document.getElementById("enter_a_input").value);
+	var b = Number(document.getElementById("enter_b_input").value);
+	//fetches values from local storage
+	console.log("Input given: a="+a);
+	console.log("Input given: b="+b);
+	//logs inputs from page
+	if (Number.isInteger(a)&&Number.isInteger(b)&&a>0&&b>0) {//ensures both inputs are positive integers
+		if (a >= b) {//ensures b is not larger than a
+			showOrNot(document.getElementById("invalid_argument_message"),false);
+			console.log("Valid inputs of "+a+" and "+b);//console feedback
+			showOrNot(document.getElementById("enter_numbers"),false);
+			showOrNot(document.getElementById("animation_div"),true);
+			document.getElementById("a").innerHTML = a;
+			document.getElementById("b").innerHTML = b;
+			localStorage.setItem("a",a);
+			localStorage.setItem("b",b);
+			localStorage.setItem("step",0);
+			canvasSetUp(a,b);
+		} else {//b > a error message
+			showOrNot(document.getElementById("invalid_argument_message"),true);
+			document.getElementById("invalid_argument_message").innerHTML = "Error, invalid arguments, \"a\" must be greater than or equal to \"b\".";
+			console.log("Invalid inputs");
 		}
-		updateStats(user,computer);
-	} else if (choice=="rock") {
-		document.getElementById("your_image").src="images/Rock.jpg";
-		console.log("Rock played");
-		//accesses user rock image and sets corresponding value for corresponding div
-		user.results[1]++;
-		if(opponentChoice < 1) {
-			console.log("Opponent played paper");
-			document.getElementById("opponent_image").src="images/Paper2.jpg";
-			computer.results[0]++;
-			computer.games[0]++;//opponent gets win
-			var output = "You played rock and your opponent played paper. Since paper beats rock, you lost!";
-			document.getElementById("game_summary").innerHTML = output;
-		} else {
-			console.log("Opponent played scissors");
-			document.getElementById("opponent_image").src="images/Scissors2.jpg";
-			computer.results[2]++;
-			user.games[0]++;//you get win
-			var output = "You played rock and your opponent played scissors. Since rock beats scissors, you win!";
-			document.getElementById("game_summary").innerHTML = output;
-		}
-		updateStats(user,computer);
-	} else if (choice=="scissors") {
-		document.getElementById("your_image").src="images/Scissors.png";
-		console.log("Scissors played");
-		//accesses user scissors image and sets corresponding value for corresponding div
-		user.results[2]++;
-		if(opponentChoice < 1) {
-			console.log("Opponent played paper");
-			document.getElementById("opponent_image").src="images/Paper2.jpg";
-			computer.results[0]++;
-			user.games[0]++;//you get win
-			var output = "You played scissors and your opponent played paper. Since scissors beats paper, you win!";
-			document.getElementById("game_summary").innerHTML = output;
-		} else {
-			console.log("Opponent played rock");
-			document.getElementById("opponent_image").src="images/Rock2.jpg";
-			computer.results[1]++;
-			computer.games[0]++;//opponent gets win
-			var output = "You played scissors and your opponent played rock. Since rock beats scissors, you lost!";
-			document.getElementById("game_summary").innerHTML = output;
-		}
-		updateStats(user,computer);
-	} else {
-		showOrNot(document.getElementById("weapon_not_entered_feedback_text"),true);
-		showOrNot(document.getElementById("feedback"),true);
+	} else {//invalid input error message
+		showOrNot(document.getElementById("invalid_argument_message"),true);
+		document.getElementById("invalid_argument_message").innerHTML = "Error, invalid arguments, ensure both entries are positive integers.";
+		console.log("Invalid inputs");
 	}
 });
+//executed once numbers are submitted by the users
+
+document.getElementById("next_button").addEventListener("click", function(){
+	showOrNot(document.getElementById("back_button"),true);
+	//allows user to go back a step
+	var n = Number(localStorage.getItem("step"))+1;
+	console.log("Next step:"+n);
+	printSquares(n);
+	//updates animation by one step
+	localStorage.setItem("step",n);
+	//updates local storage to reflect the current step of the program
+});
+
+document.getElementById("back_button").addEventListener("click", function(){
+	showOrNot(document.getElementById("next_button"),true);
+	//allows user to go forward a step
+	showOrNot(document.getElementById("tile_button"),false);
+	//if going back from any step tiling is not possible
+	var a = Number(localStorage.getItem("a"));
+	var b = Number(localStorage.getItem("b"));
+	//fetches user-inputted integers for clearing the canvas
+	canvas.clearRect(0,0,canvasHeight*b/a,canvasHeight);
+	//canvas cleared
+	var n = Number(localStorage.getItem("step"))-1;
+	console.log("Back step:"+n);
+	printSquares(n);
+	//updates animation down a step
+	localStorage.setItem("step",n);
+	//updates local storage to reflect the current step of the program
+});
+
+document.getElementById("tile_button").addEventListener("click", function () {
+	if (tiled==true) {
+		var n = Number(localStorage.getItem("step"));
+		printSquares(n);
+		//reanimated at current last step
+		showOrNot(document.getElementById("back_button"),true);
+		document.getElementById("tile_button").innerHTML = "Tile";
+		//resets button to match untiled state
+	} else {
+		var a = Number(localStorage.getItem("a"));
+		var b = Number(localStorage.getItem("b"));
+		var gcd = Number(localStorage.getItem("gcd"));
+		var color = localStorage.getItem("tile_color");
+		//fetches values from local storage to calculate canvas and tile dimensions
+		canvas.beginPath();
+		for (var i = 0; i < a; i += gcd) {
+			for (var j = 0; j < b; j += gcd) {
+				canvas.rect(canvasHeight*j/a,canvasHeight*i/a,canvasHeight*gcd/a,canvasHeight*gcd/a);
+			}
+		}
+		canvas.globalAlpha = 0.4;
+		canvas.fillStyle = color;
+		//makes squares semi-transparent with the last used-color, degree of transparency can be altered
+		canvas.fill();
+		canvas.stroke();
+		//tiles canvas and updates it
+		canvas.globalAlpha = 1;
+		//sets transparency back to one, do not change
+		showOrNot(document.getElementById("back_button"),false);
+		document.getElementById("tile_button").innerHTML = "Untile";
+		//resets buttons to match tiled state
+	}
+	tiled = !tiled;
+	//clicking button changes current state
+});
+
+function canvasSetUp () {
+	var a = Number(localStorage.getItem("a"));
+	var b = Number(localStorage.getItem("b"));
+	var maxLength = 400;
+	showOrNot(c,true);
+	c.width=canvasHeight*b/a;
+	c.height=canvasHeight;
+}
+//sets up the canvas with predetermined height and user-determined width (taller than wide)
+
+function printSquares (n) {
+	var a = Number(localStorage.getItem("a"));
+	var b = Number(localStorage.getItem("b"));
+	//fetches values from local storage
+	var tempA = a;
+	var tempB = b;
+	//creates shallow copies of values to run the algorithm but have actual values for later reference
+	if (n==0) {
+		showOrNot(document.getElementById("back_button"),false);
+	}
+	//cannot animate negative numbers so hides button to go back a step
+	for (var i = 0; i < n; i ++) {
+		showOrNot(document.getElementById("back_button"),true);
+		//following the previous few lines, will only run if n > 0
+		console.log("Step:"+n+"\nLoop:"+i+"\nTemporaryA:"+tempA+"\nTemporaryB:"+tempB);
+		//logs loop information
+		canvas.beginPath();
+		var j = 0;
+		while (tempB*(j+1)<=tempA) {
+			if (i%2==0) {
+				canvas.rect(canvasHeight*(b-tempB)/a,canvasHeight*(tempB*j+a-tempA)/a,canvasHeight*tempB/a,canvasHeight*tempB/a);
+			} else {
+				canvas.rect(canvasHeight*(tempB*j+b-tempA)/a,canvasHeight*(a-tempB)/a,canvasHeight*tempB/a,canvasHeight*tempB/a);
+			}
+			j++;
+		}
+		console.log("Squares:"+j);
+		//logs the number of squares drawn on the canvas
+		if (i%6==0) {
+			canvas.fillStyle = "#ff0000";
+		} else if (i%6==1) {
+			canvas.fillStyle = "#00ff00";
+		} else if (i%6==2) {
+			canvas.fillStyle = "#0000ff";
+		} else if (i%6==3) {
+			canvas.fillStyle = "#ffff00";
+		} else if (i%6==4) {
+			canvas.fillStyle = "#00ffff";
+		} else {
+			canvas.fillStyle = "#ff00ff";
+		}
+		//colors for tiling squares cycle through these six values
+		var placeholder = tempB;
+		tempB = tempA - (j)*tempB;
+		tempA = placeholder;
+		//runs the algorithm with copy values
+		console.log("Temporary values just adjusted, a="+tempA+" and b="+tempB);
+		//logs result of algorithm step
+		canvas.fill();
+		canvas.stroke();
+	}
+	//draws all sets of squares requested by the parameters
+	if (tempB==0) {
+		showOrNot(document.getElementById("next_button"),false);
+		//if algorithm is terminated, no next value is relevant
+		localStorage.setItem("gcd",tempA);
+		console.log("gcd:"+tempA);
+		//stores and logs calculated GCD
+		showOrNot(document.getElementById("tile_button"),true);
+		//makes tiling available to user
+		localStorage.setItem("tile_color",canvas.fillStyle);
+		//saves tile color in local storage for tiling function
+	}
+	//checks if algorithm has reached termination
+}
 
 function showOrNot (div_element/*name of div*/, show/*boolean as whether or not you want it to be seen*/) {
 	if (show && div_element.classList.contains("hidden")) {
@@ -145,64 +199,6 @@ function showOrNot (div_element/*name of div*/, show/*boolean as whether or not 
 	}
 }//takes a div and makes it either hidden or visible, depending on preferences
 
-/*
-function statsPageUpdate () {
-	var user = JSON.parse(localStorage.getItem("user"));
-	var computer = JSON.parse(localStorage.getItem("computer"));
-	var sum = user.games[1];
-	if (sum != computer.games[1]) console.log("The user and computer objects don't have the same number of games played, this is an error messgae that should not ever come up");
-	document.getElementById("total_games_played").innerHTML = sum;
-	document.getElementById("total_player_wins").innerHTML = user.games[0];
-	var ratio = parseInt(100*user.games[0]/sum);
-	var outputRatio = ratio+"%";
-	document.getElementById("winning_percentage").innerHTML = outputRatio;//if this funciton is called, a game has been played, cannot be zero
-	var p0 = parseInt(100*user.results[0]/sum);
-	var p1 = parseInt(100*user.results[1]/sum);
-	var p2 = parseInt(100*user.results[2]/sum);
-	var o0 = parseInt(100*computer.results[0]/sum);
-	var o1 = parseInt(100*computer.results[1]/sum);
-	var o2 = parseInt(100*computer.results[2]/sum);
-
-	
-	p0 = p0 + "%";
-	p1 = p1 + "%";
-	p2 = p2 + "%";
-	o0 = o0 + "%";
-	o1 = o1 + "%";
-	o2 = o2 + "%";
-
-	document.getElementById("your_paper_stats").innerHTML = p0;
-	document.getElementById("your_rock_stats").innerHTML = p1;
-	document.getElementById("your_scissors_stats").innerHTML = p2;
-	document.getElementById("opponent_paper_stats").innerHTML = o0;
-	document.getElementById("opponent_rock_stats").innerHTML = o1;
-	document.getElementById("opponent_scissors_stats").innerHTML = o2;
-}//this was added as a <script></script> section of the stats.html file and it worked well then
-*/
-
-function updateStats (user,computer) {
-	user.games[1]++;//user adds a game to register
-	computer.games[1]++;//computer adds a game to register
-	localStorage.setItem("user",JSON.stringify(user));//updates user object in local storage
-	localStorage.setItem("computer",JSON.stringify(computer));//updates computer object in local storage
-	localStorage.setItem("show_stats",true);
-
-	console.log("User in local storage update: ",localStorage.getItem("user"));
-	console.log("Computer in local storage update:",localStorage.getItem("computer"));
-
-	//console.log("Player:"+player_results);
-	//console.log("Opponent:"+computer_results);
-	//console.log("Game split:"+gamesWon);
-
-	showOrNot(document.getElementById("weapon_not_entered_feedback_text"),false);
-	showOrNot(document.getElementById("play_move"),false);
-	showOrNot(document.getElementById("player_choice"),false);
-	showOrNot(document.getElementById("play_again"),true);
-	showOrNot(document.getElementById("game_results"),true);
-	showOrNot(document.getElementById("show_stats_button"),true);
-	showOrNot(document.getElementById("play_weapon_message"),false);
-}
-
 function makeToggable (button_element, div_element){
 	button_element.addEventListener("click", function(){
 		if (div_element.classList.contains("hidden")){//if one of the properties of the div is "hidden"
@@ -212,14 +208,6 @@ function makeToggable (button_element, div_element){
 			div_element.classList.remove("visible");//remove the "visible" status
 			div_element.classList.add("hidden");//insert the "hidden" status
 		}
-		console.log(div_element.id+" button toggled in makeToggable() function");//console feedback that button was toggled
+		//console.log(div_element.id+" button toggled in makeToggable() function");//console feedback that button was toggled
 	});//adds function
 }//makes a button able to toggle visibility for a div
-
-document.getElementById("play_again").addEventListener("click", function(){
-	showOrNot(document.getElementById("play_move"),true);
-	showOrNot(document.getElementById("player_choice"),true);
-	showOrNot(document.getElementById("play_again"),false);
-	showOrNot(document.getElementById("play_weapon_message"),true);
-	document.getElementById("player_choice").value = "";
-});
