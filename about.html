@@ -15,17 +15,23 @@
       <a id = "link_animation_button" class = "visible" href="/animation">Animation</a>
     </p>
   </div>
-  
-  <div id="algorith_description" class="visible">
-    <h2>Algorithm Rules</h2>
-    This is a written section on the history of the algorithm, how it actually works, and applications.
-    <li class="hidden"><a href="http://worldrps.com/">Link template, change to visible</a></li>
+
+  <div id="algorithm_description" class="visible">
+    <h2>About the Algorithm</h2>
+    <p>First described by ancient Greek mathematician Euclid around 300 BCE, Euclid's Algorithm is a step-by-step process for quickly finding what is called the "greatest common divisor" of two numbers, a calculation of great importance in much of algebra and beyond.</p>
+    <p>To break down the meaning of the phrase "greatest common divisor", it is best to start with the definition of a "divisor". A number is said to be a divisor of another number if the first divides into the second with no remainder. For example, 4 is a divisor of 12 since 12 divided by 4 is 3, but 5 is not a divisor of 12 since 12 divided by 5 leaves a remainder of 2. Every number has a set of divisors, or a collection of numbers which divide into it without a remainder. Using our previous example, the set of divisors of 12 would include 1, 2, 3, 4, 6, and 12 itself.</p>
+    <p>Having just defined a "divisor" of a number, the next step is to say what a "common divisor" would be. If given two numbers, any common divisor will be a divisor of both numbers. For example, if our two numbers are 6 and 16, we can start by saying the divisors of 6 are 1, 2, 3, and 6, and that the divisors of 16 are 1, 2, 4, 8, and 16. Since the two numbers that appear on both lists are 1 and 2, they are the two common divisors of 6 and 16.</p>
+    <p>Mathematics gives many motivations for finding the largest number in a set of common divisors, or the "greatest common divisor" of the two numbers. For example, if you have a fraction that can be reduced (such as 10/6), the amount you divide the numerator and denominator by is the greatest common divisor. To carry out an example, to reduce the fraction 25/10, the first step is to find that the greatest common divisor is 5, the second step is to divide 25 and 10 by 5 to get 5 and 2 respectively, and the final step is to combine 5 and 2 to get the reduced fraction of 5/2.</p>
+    <p>Euclid's Algorithm finds the greatest common divisor by repeatedly dividing two numbers, replacing the larger one with the smaller one, and replacing the smaller one with the remainder until there is an even division. Looking at a flowchart or written description of the algorithm, it can be difficult to intuitively see how Euclid's Algorithm actually works. This is where an animation of square tilings becomes useful.</p>
+    <p>A way to interpret the greatest common divisor is to picture a rectangle with lengths of the two numbers you are comparing. Any length of a square that perfectly tiles this rectangle will be a common divisor, so the greatest common divisor will simply be the largest length whose squares tile the entire rectangle. To see the process of both finding the length and tiling a rectange with said squares, make sure to try out the animation!</p>
+
+    <!--https://en.wikipedia.org/wiki/Euclidean_algorithm and https://en.wikipedia.org/wiki/Irreducible_fraction-->
   </div>
-  
+
   <footer>
     Produced by Stephen Andryc (Topics '18-'19).
   </footer>
-  
+
   <script src="scripts/scripts.js"></script>
 </body>
 </html>

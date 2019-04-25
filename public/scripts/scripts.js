@@ -61,6 +61,8 @@ document.getElementById("next_button").addEventListener("click", function(){
 
 document.getElementById("back_button").addEventListener("click", function(){
 	showOrNot(document.getElementById("next_button"),true);
+	showOrNot(document.getElementById("remainder_rectangle_sentence"),true);
+	showOrNot(document.getElementById("tiling_ready_sentence"),false);
 	//allows user to go forward a step
 	showOrNot(document.getElementById("tile_button"),false);
 	//if going back from any step tiling is not possible
@@ -83,6 +85,8 @@ document.getElementById("tile_button").addEventListener("click", function () {
 		printSquares(n);
 		//reanimated at current last step
 		showOrNot(document.getElementById("back_button"),true);
+		showOrNot(document.getElementById("animation_description"),true);
+		showOrNot(document.getElementById("tiling_description"),false);
 		document.getElementById("tile_button").innerHTML = "Tile";
 		//resets button to match untiled state
 	} else {
@@ -106,6 +110,9 @@ document.getElementById("tile_button").addEventListener("click", function () {
 		canvas.globalAlpha = 1;
 		//sets transparency back to one, do not change
 		showOrNot(document.getElementById("back_button"),false);
+		showOrNot(document.getElementById("animation_description"),false);
+		showOrNot(document.getElementById("tiling_description"),true);
+		document.getElementById("tiling_description").innerHTML = "Your original rectangle with a height of "+a+" and a length of "+b+" has been tiled with squares with a length of "+gcd+", which is the greatest common divisor of the two numbers.";
 		document.getElementById("tile_button").innerHTML = "Untile";
 		//resets buttons to match tiled state
 	}
@@ -132,10 +139,16 @@ function printSquares (n) {
 	//creates shallow copies of values to run the algorithm but have actual values for later reference
 	if (n==0) {
 		showOrNot(document.getElementById("back_button"),false);
+		//cannot animate negative numbers so hides button to go back a step
+		showOrNot(document.getElementById("rectangle_description"),true);
+		showOrNot(document.getElementById("animation_description"),false);
+		showOrNot(document.getElementById("tiling_description"),false);
+		//updates the description for blank canvas
 	}
-	//cannot animate negative numbers so hides button to go back a step
 	for (var i = 0; i < n; i ++) {
 		showOrNot(document.getElementById("back_button"),true);
+		showOrNot(document.getElementById("rectangle_description"),false);
+		showOrNot(document.getElementById("animation_description"),true);
 		//following the previous few lines, will only run if n > 0
 		console.log("Step:"+n+"\nLoop:"+i+"\nTemporaryA:"+tempA+"\nTemporaryB:"+tempB);
 		//logs loop information
@@ -151,6 +164,23 @@ function printSquares (n) {
 		}
 		console.log("Squares:"+j);
 		//logs the number of squares drawn on the canvas
+		document.getElementById("step").innerHTML = i+1;
+		if (j==1) {
+			document.getElementById("squares").innerHTML = "1 square";
+			document.getElementById("verb").innerHTML = "was";
+		} else {
+			document.getElementById("squares").innerHTML = j + " squares";
+			document.getElementById("verb").innerHTML = "were";
+		}
+		document.getElementById("side_length").innerHTML = tempB;
+		if (n%2==0) {
+			document.getElementById("dimension_1").innerHTML = tempB;
+			document.getElementById("dimension_2").innerHTML = tempA - (j)*tempB;
+		} else {
+			document.getElementById("dimension_2").innerHTML = tempB;
+			document.getElementById("dimension_1").innerHTML = tempA - (j)*tempB;
+		}
+		//updates description given that animation is occuring
 		if (i%6==0) {
 			canvas.fillStyle = "#ff0000";
 		} else if (i%6==1) {
@@ -177,6 +207,8 @@ function printSquares (n) {
 	//draws all sets of squares requested by the parameters
 	if (tempB==0) {
 		showOrNot(document.getElementById("next_button"),false);
+		showOrNot(document.getElementById("remainder_rectangle_sentence"),false);
+		showOrNot(document.getElementById("tiling_ready_sentence"),true);
 		//if algorithm is terminated, no next value is relevant
 		localStorage.setItem("gcd",tempA);
 		console.log("gcd:"+tempA);

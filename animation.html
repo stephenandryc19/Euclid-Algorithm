@@ -12,7 +12,7 @@
     <p>
       <a id = "link_home_button" class = "visible" href="/">Home</a>
       <a id = "link_about_button" class = "visible" href="/about">About</a>
-      <a id = "link_animation_button" class = "visible" href="/animation">Animation</a>
+      <a id = "link_animation_button" class = "visible" href="/animation">Animation (will reset program)</a>
     </p>
   </div>
 
@@ -22,20 +22,22 @@
   </div>
   
   <div id="enter_numbers" class="visible">
-      <h2>Please enter your two numbers</h2>
+      <h2>Please enter your two numbers (<em>a</em> should be greater than or equal to <em>b</em>)</h2>
       <p class="hidden" style="color:red" id="invalid_argument_message"></p>
       <p></p>
-      a = <input type="text" id = "enter_a_input">
+      <em>a</em> = <input type="text" id = "enter_a_input">
       <p></p>
-      b = <input type="text" id = "enter_b_input">
+      <em>b</em> = <input type="text" id = "enter_b_input">
       <p></p>
       <button id = "enter_numbers_button">Submit numbers</button>
   </div>
 
   <div id="animation_div" class="hidden">
-    <p>Below is the animation for your numbers <font style="color:orange" id="a"></font> and <font style="color:orange" id="b"></font>.</p>
+    <p id="rectangle_description" class="visible">Using your numbers, below is a rectangle with height <font style="color:orange" id="a"></font> and width <font style="color:orange" id="b"></font>.</p>
+    <p id="animation_description" class="hidden">For step <font style="color:orange" id="step"></font> of the animation, <font style="color:orange" id="squares"></font> with length <font style="color:orange" id="side_length"></font> <font id="verb"></font> added to the animation.<font id="remainder_rectangle_sentence" class="visible"> The remainder rectangle, colored in white, has a height of <font style="color:orange" id="dimension_1"></font> and a width of <font style="color:orange" id="dimension_2"></font>.</font><font id="tiling_ready_sentence" class="hidden">Since the original rectangle has been filled, it is now ready to be tiled with squares with the width of the greatest common divisor.</font></p>
+    <p id="tiling_description" class="hidden"></p>
     <canvas id="canvas"></canvas>
-    <p><button id="back_button" class="hidden">Back</button><button id="tile_button" class="hidden">Tile</button><button id="next_button" class="visible">Next</button></p>
+    <p><button id="back_button" class="hidden">Back</button> <button id="tile_button" class="hidden">Tile</button> <button id="next_button" class="visible">Next</button></p>
   </div>
 
   <footer>
